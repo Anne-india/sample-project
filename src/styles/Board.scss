@@ -1,0 +1,42 @@
+.board {
+    width: 500px;
+    height: 400px;
+    border: 1px solid #444;
+    border-bottom: none;
+    .row {
+      display: flex;
+      height: 50px;
+      &:last-child{
+        border-bottom: none;
+        height: 50px;
+      }
+      .cell {
+        border-right: 1px solid #444;
+        width: 63px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid #444;
+        &.open{
+          background-color: #d4d4d4;
+          &.diamond{
+            background: url(../images/diamond.png) no-repeat;
+            background-size: contain;
+          }
+          &:hover {
+            background-color: #d4d4d4;
+          }
+        }
+        &.unknown{
+            background: url(../images/question.png) no-repeat;
+            background-size: contain;
+        }
+        &:hover {
+          background-color: #eeeeee;
+        }
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+  }

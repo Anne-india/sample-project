@@ -1,0 +1,13 @@
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.diamondSweeper{
+  width: 500px;
+  height: 500px;
+  border: 1px solid #000;
+}
+
