@@ -47,7 +47,7 @@ export default class Board extends Component {
       }
       diamondCell.hasDiamond = true;
     }
-      return board;
+    return board;
   };
 
   //click event to show a cell content
@@ -64,13 +64,23 @@ export default class Board extends Component {
     if (current.hasDiamond) {
       this.props.calcReavealedDiamonds();
     }
+    //to calculate score
     this.props.calcScore();
+    //set `hasNearbyDiamond` to false of all cells
+    for(let i=0; i<this.props.rows; i++){
+      for(let j=0; j<this.props.cols; j++){
+        if(rows[j][i].hasNearbyDiamond){
+          rows[j][i].hasNearbyDiamond = false;
+        }
+      }
+    }
+    //fine proximity diamonds to show `arrow`
     this.findDiamonds(cell, rows, current);
   };
 
+  //find nearby diamonds
   findDiamonds = (cell, rows, current) => {
-    // look for mines in a 1 cell block around the chosen cell
-    console.log('find diamonds');
+    // look for diamonds in a 1 cell block around the chosen cell
     for (let row = -1; row <= 1; row++) {
       for (let col = -1; col <= 1; col++) {
         if (cell.y + row >= 0 && cell.x + col >= 0) {

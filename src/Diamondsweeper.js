@@ -44,7 +44,6 @@ class Diamondsweeper extends Component {
         diamondFound: this.state.diamondFound + 1
       },
       () => {
-        console.log("revealed diamonds:::" + this.state.diamondFound);
         if (this.state.diamondFound === this.state.diamonds) {
           this.setState(
             {
@@ -64,7 +63,6 @@ class Diamondsweeper extends Component {
   };
 
   render() {
-    console.log(this.state);
     return (
       <div className="diamondSweeper">
         <h1>Let's Play!!!</h1>

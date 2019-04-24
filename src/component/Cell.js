@@ -19,15 +19,39 @@ export default class Cell extends Component {
 
   renderCell = () => {
     if (this.props.data.isOpen) {
+      if (this.props.data.hasDiamond) {
+        //show diamond image inside cell
         return (
           <div
-            className={this.props.data.hasDiamond === true ? 'cell open diamond' : 'cell open'}
+            className="cell open diamond"
             onContextMenu={e => {
               //disable right click
               e.preventDefault();
             }}
           />
         );
+      }else if(this.props.data.hasNearbyDiamond){
+        return (
+          <div
+            className="cell open nearBydiamond"
+            onContextMenu={e => {
+              //disable right click
+              e.preventDefault();
+            }}
+          />
+        );
+      }else {
+        //show default image inside cell
+        return (
+          <div
+            className="cell open"
+            onContextMenu={e => {
+              //disable right click
+              e.preventDefault();
+            }}
+          />
+        );
+      }
     } else {
       return (
         <div

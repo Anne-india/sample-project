@@ -20,6 +20,10 @@
             background: url(../images/diamond.png) no-repeat;
             background-size: contain;
           }
+          &.nearBydiamond{
+            background: url(../images/arrow.png) no-repeat;
+            background-size: contain;
+          }
           &:hover {
             background-color: #d4d4d4;
           }
