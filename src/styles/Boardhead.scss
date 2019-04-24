@@ -1,0 +1,11 @@
+.board-head {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px;
+  border: 1px solid #000;
+  .btn{
+    width: 100px;
+    height: 30px;
+    color: #0000ff;
+  }
+}

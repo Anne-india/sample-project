@@ -6,9 +6,19 @@ export default class Board extends Component {
     super(props);
     //initialize state
     this.state = {
-      board: this.createBoard(props)
+      rows: this.createBoard(props)
     };
   }
+
+  //render child component on update of parent state
+  componentWillReceiveProps(nextProps) {
+    if (this.props.openCells > nextProps.openCells) {
+      this.setState({
+        rows: this.createBoard(nextProps)
+      });
+    }
+  }
+
   //create rows*cols board
   createBoard = props => {
     let board = [];
@@ -20,9 +30,9 @@ export default class Board extends Component {
         board[i].push({
           x: j,
           y: i,
-          count: 0,
           isOpen: false,
-          hasDiamond: false
+          hasDiamond: false,
+          hasNearbyDiamond: false
         });
       }
     }
@@ -37,7 +47,7 @@ export default class Board extends Component {
       }
       diamondCell.hasDiamond = true;
     }
-    return board;
+      return board;
   };
 
   //click event to show a cell content
@@ -45,20 +55,41 @@ export default class Board extends Component {
     if (this.props.status === "ended") {
       return;
     }
-    let board = this.state.board;
-    let current = board[cell.y][cell.x];
+    let rows = this.state.rows;
+    let current = rows[cell.y][cell.x];
     if (!current.isOpen) {
       current.isOpen = true;
-      this.setState({ board });
+      this.setState({ rows });
     }
-    if(current.hasDiamond){
+    if (current.hasDiamond) {
       this.props.calcReavealedDiamonds();
     }
     this.props.calcScore();
+    this.findDiamonds(cell, rows, current);
+  };
+
+  findDiamonds = (cell, rows, current) => {
+    // look for mines in a 1 cell block around the chosen cell
+    console.log('find diamonds');
+    for (let row = -1; row <= 1; row++) {
+      for (let col = -1; col <= 1; col++) {
+        if (cell.y + row >= 0 && cell.x + col >= 0) {
+          if (cell.y + row < rows.length && cell.x + col < rows[0].length) {
+            if (
+              rows[cell.y + row][cell.x + col].hasDiamond &&
+              !(row === 0 && col === 0)
+            ) {
+              current.hasNearbyDiamond = true;
+              this.setState({ rows });
+            }
+          }
+        }
+      }
+    }
   };
 
   render() {
-    let rows = this.state.board.map((row, index) => {
+    let rows = this.state.rows.map((row, index) => {
       return <Row row={row} open={this.open} key={index} />;
     });
     //return individual rows

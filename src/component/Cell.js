@@ -1,25 +1,48 @@
-import React from "react";
+import React, { Component } from "react";
 
-const Cell = props => {
-  let renderCell = () => {
-    if (props.data.isOpen) {
-      if (props.data.hasDiamond) {
-        return <div className="cell open diamond" />; //show diamond image inside cell
-      } else {
-        return <div className="cell open" />;   //show default image inside cell 
-      }
+export default class Cell extends Component {
+  constructor(props) {
+    super(props);
+    //initialize state
+    this.state = {
+      ...props.data
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.data !== this.state) {
+      this.setState({
+        ...nextProps.data
+      });
+    }
+  }
+
+  renderCell = () => {
+    if (this.props.data.isOpen) {
+        return (
+          <div
+            className={this.props.data.hasDiamond === true ? 'cell open diamond' : 'cell open'}
+            onContextMenu={e => {
+              //disable right click
+              e.preventDefault();
+            }}
+          />
+        );
     } else {
       return (
-        <div className="cell unknown" 
-        onContextMenu={e => {
-           //disable right click
+        <div
+          className="cell unknown"
+          onContextMenu={e => {
+            //disable right click
             e.preventDefault();
-        }}
-        onClick={() => props.open(props.data)} />
+          }}
+          onClick={() => this.props.open(this.props.data)}
+        />
       );
     }
   };
-  return renderCell();
-};
 
-export default Cell;
+  render() {
+    return this.renderCell();
+  }
+}

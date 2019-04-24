@@ -1,18 +1,12 @@
-import React, { Component } from 'react'
+import React from "react";
 
-export default class Boardhead extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            
-        }
+const Boardhead = props => {
+  return (
+    <div className="board-head">
+      <button className="btn reset" onClick={() => props.reset()}>Reset</button>
+      <button className="btn undo" onClick={() => console.log('Clicked undo')}>Undo</button>
+    </div>
+  );
+};
 
-    }
-  render() {
-    return (
-      <div>
-        
-      </div>
-    )
-  }
-}
+export default Boardhead;

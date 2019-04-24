@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Board from "./component/Board";
-
-import "./styles/Board.scss";
+import Boardhead from './component/Boardhead';
 
 class Diamondsweeper extends Component {
   constructor(props) {
@@ -15,7 +14,9 @@ class Diamondsweeper extends Component {
       diamondFound: 0,
       status: "running",
       score: 0
-    };
+    }
+    this.baseState = this.state
+
   }
 
   //total score is
@@ -57,15 +58,23 @@ class Diamondsweeper extends Component {
       }
     );
   };
+  //reset game
+  reset = () => {
+    this.setState(this.baseState)
+  };
 
   render() {
+    console.log(this.state);
     return (
       <div className="diamondSweeper">
+        <h1>Let's Play!!!</h1>
+        <Boardhead reset={this.reset}/>
         <Board
           status={this.state.status}
           rows={this.state.rows}
           cols={this.state.cols}
           diamonds={this.state.diamonds}
+          openCells={this.state.openCells}
           calcReavealedDiamonds={this.calcReavealedDiamonds}
           calcScore={this.calcScore}
         />
