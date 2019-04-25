@@ -17,11 +17,11 @@
         cursor: pointer;
         &.open{
           &.diamond{
-            background: url(../images/diamond.png) no-repeat;
+            background: url(../images/diamond.png) 5px no-repeat;
             background-size: contain;
           }
           &.nearBydiamond{
-            background: url(../images/arrow.png) no-repeat;
+            background: url(../images/arrow.png) 5px no-repeat;
             background-size: contain;
           }
           &:hover {
@@ -29,7 +29,7 @@
           }
         }
         &.unknown{
-            background: url(../images/question.png) no-repeat;
+            background: url(../images/question.png) 5px no-repeat;
             background-size: contain;
         }
         &:hover {
