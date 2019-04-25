@@ -64,12 +64,11 @@ export default class Board extends Component {
     if (current.hasDiamond) {
       this.props.calcReavealedDiamonds();
     }
-    //to calculate score
     this.props.calcScore();
     //set `hasNearbyDiamond` to false of all cells
-    for(let i=0; i<this.props.rows; i++){
-      for(let j=0; j<this.props.cols; j++){
-        if(rows[j][i].hasNearbyDiamond){
+    for (let i = 0; i < this.props.rows; i++) {
+      for (let j = 0; j < this.props.cols; j++) {
+        if (rows[j][i].hasNearbyDiamond) {
           rows[j][i].hasNearbyDiamond = false;
         }
       }
