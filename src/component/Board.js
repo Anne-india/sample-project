@@ -8,11 +8,12 @@ export default class Board extends Component {
     this.state = {
       rows: this.createBoard(props)
     };
+    this.prevRows =this.state;
   }
 
   //render child component on update of parent state
   componentWillReceiveProps(nextProps) {
-    if (this.props.openCells > nextProps.openCells) {
+    if (nextProps.openCells === 0) {
       this.setState({
         rows: this.createBoard(nextProps)
       });
@@ -59,12 +60,12 @@ export default class Board extends Component {
     let current = rows[cell.y][cell.x];
     if (!current.isOpen) {
       current.isOpen = true;
-      this.setState({ rows });
+      
     }
     if (current.hasDiamond) {
-      this.props.calcReavealedDiamonds();
+      this.calcDiamondStateObj = this.props.calcReavealedDiamonds();
     }
-    this.props.calcScore();
+    this.calcScoreObj = this.props.calcScore();
     //set `hasNearbyDiamond` to false of all cells
     for (let i = 0; i < this.props.rows; i++) {
       for (let j = 0; j < this.props.cols; j++) {
@@ -75,7 +76,12 @@ export default class Board extends Component {
     }
     //fine proximity diamonds to show `arrow`
     this.findDiamonds(cell, rows, current);
-  };
+
+    this.setState({ rows });
+
+    //set diamond sweeper component state
+    this.props.updateGameState(this.calcScoreObj, this.calcDiamondStateObj);
+    };
 
   //find nearby diamonds
   findDiamonds = (cell, rows, current) => {
@@ -89,7 +95,6 @@ export default class Board extends Component {
               !(row === 0 && col === 0)
             ) {
               current.hasNearbyDiamond = true;
-              this.setState({ rows });
             }
           }
         }

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-export default class Cell extends Component {
+class Cell extends Component {
   constructor(props) {
     super(props);
     //initialize state
@@ -70,3 +70,6 @@ export default class Cell extends Component {
     return this.renderCell();
   }
 }
+
+
+export default Cell;

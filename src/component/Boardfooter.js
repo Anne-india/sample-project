@@ -9,7 +9,7 @@ const Boardfooter = props => {
           <p>Score: {props.score}</p>
         </div>
       );
-    } else return <div />;
+    } else return null;
   };
 
   return renderScore();
